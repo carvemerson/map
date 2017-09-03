@@ -8,7 +8,7 @@ import { GoogleMaps, GoogleMap, GoogleMapsEvent } from "@ionic-native/google-map
 
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular DI.
-*/
+*/  
 @Injectable()
 export class MapServiceProvider {
 
@@ -34,9 +34,9 @@ export class MapServiceProvider {
         );
 
       } else if (this.map.getDiv() != el) { 
+        this.map.clear();
         this.map.setDiv(null);
         this.map.setDiv(el);
-        this.map.clear();
 
         setTimeout(() => {
           resolve();

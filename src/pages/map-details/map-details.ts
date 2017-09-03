@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { MapServiceProvider } from "../../providers/map-service/map-service";
 import { LatLng } from "@ionic-native/google-maps";
 
@@ -21,16 +21,20 @@ export class MapDetailsPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    private mapServiceProvider: MapServiceProvider
+    private mapServiceProvider: MapServiceProvider,
+    private plt: Platform
   ) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MapDetailsPage');
-    
-    this.mapServiceProvider.setDiv(this.mapElement.nativeElement).then(() => {
-      //add markers, polyline, etc.
-      this.mapServiceProvider.map.addMarker({
-        position: new LatLng(0,0)
+    this.plt.ready().then(() => {
+      console.log('ionViewDidLoad MapDetailsPage');
+      this.mapServiceProvider.setDiv(this.mapElement.nativeElement).then(() => {
+        //add markers, polyline, etc.
+        this.mapServiceProvider.map.addMarker({
+          position: new LatLng(0,0)
+        });
+        
+        this.mapServiceProvider.map.animateCameraZoomIn();
       });
     });
   }

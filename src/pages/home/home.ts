@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { MapServiceProvider } from "../../providers/map-service/map-service";
 import { ListPage } from "../list/list";
 import { LatLng } from "@ionic-native/google-maps";
@@ -10,23 +10,26 @@ import { LatLng } from "@ionic-native/google-maps";
 })
 export class HomePage {
 
-  @ViewChild('map') mapElement: ElementRef;  
-  
+  @ViewChild('map') mapElement: ElementRef;
+
   constructor(
     public navCtrl: NavController,
-    private mapServiceProvider: MapServiceProvider
-  ) {}
+    private mapServiceProvider: MapServiceProvider,
+    private plt: Platform
+  ) { }
 
   ionViewWillEnter() {
-    this.mapServiceProvider.setDiv(this.mapElement.nativeElement).then(() => {
-      //add markers, polyline, etc.
-      this.mapServiceProvider.map.addMarker({
-        position: new LatLng(0,0)
+    this.plt.ready().then(() => {
+      this.mapServiceProvider.setDiv(this.mapElement.nativeElement).then(() => {
+        //add markers, polyline, etc.
+        this.mapServiceProvider.map.addMarker({
+          position: new LatLng(0, 0)
+        });
       });
     });
   }
 
-  openList(){
+  openList() {
     this.navCtrl.push(ListPage);
   }
 }
