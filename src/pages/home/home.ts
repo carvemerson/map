@@ -19,8 +19,10 @@ export class HomePage {
   ) { }
 
   ionViewDidEnter() {
-    console.log('ionViewDidEnter');
-    setTimeout(this.loadMap.bind(this), 1000);
+    this.plt.ready().then(() => {
+      console.log('ionViewDidEnter Home');
+      setTimeout(this.loadMap.bind(this), 1000);
+    });
   }
 
   loadMap() {

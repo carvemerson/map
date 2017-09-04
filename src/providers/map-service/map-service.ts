@@ -34,7 +34,6 @@ export class MapServiceProvider {
         );
 
       } else if (this.map.getDiv() != el) {
-
         this.map.clear();
         this.map.setDiv(null);
         this.map.setDiv(el);

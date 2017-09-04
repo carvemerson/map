@@ -26,12 +26,13 @@ export class MapDetailsPage {
   ) { }
 
   ionViewDidEnter() {
-    setTimeout(this.loadMap.bind(this), 1000);
+    this.plt.ready().then(() => {
+      console.log('ionViewDidEnter Map Details');
+      setTimeout(this.loadMap.bind(this), 1000);
+    });
   }
 
   loadMap(){
-    console.log(this.mapElement);
-    console.log(this.mapElement.nativeElement);
     this.mapServiceProvider.setDiv(this.mapElement.nativeElement).then(() => {
       //add markers, polyline, etc.
       this.mapServiceProvider.map.addMarker({
