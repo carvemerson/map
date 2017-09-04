@@ -18,13 +18,16 @@ export class HomePage {
     private plt: Platform
   ) { }
 
-  ionViewWillEnter() {
-    this.plt.ready().then(() => {
-      this.mapServiceProvider.setDiv(this.mapElement.nativeElement).then(() => {
-        //add markers, polyline, etc.
-        this.mapServiceProvider.map.addMarker({
-          position: new LatLng(0, 0)
-        });
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter');
+    setTimeout(this.loadMap.bind(this), 1000);
+  }
+
+  loadMap() {
+    this.mapServiceProvider.setDiv(this.mapElement.nativeElement).then(() => {
+      //add markers, polyline, etc.
+      this.mapServiceProvider.map.addMarker({
+        position: new LatLng(0, 0)
       });
     });
   }

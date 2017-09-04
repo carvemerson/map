@@ -25,17 +25,20 @@ export class MapDetailsPage {
     private plt: Platform
   ) { }
 
-  ionViewDidLoad() {
-    this.plt.ready().then(() => {
-      console.log('ionViewDidLoad MapDetailsPage');
-      this.mapServiceProvider.setDiv(this.mapElement.nativeElement).then(() => {
-        //add markers, polyline, etc.
-        this.mapServiceProvider.map.addMarker({
-          position: new LatLng(0,0)
-        });
-        
-        this.mapServiceProvider.map.animateCameraZoomIn();
+  ionViewDidEnter() {
+    setTimeout(this.loadMap.bind(this), 1000);
+  }
+
+  loadMap(){
+    console.log(this.mapElement);
+    console.log(this.mapElement.nativeElement);
+    this.mapServiceProvider.setDiv(this.mapElement.nativeElement).then(() => {
+      //add markers, polyline, etc.
+      this.mapServiceProvider.map.addMarker({
+        position: new LatLng(0,0)
       });
+      
+      this.mapServiceProvider.map.animateCameraZoomIn();
     });
   }
 }
