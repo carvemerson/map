@@ -25,11 +25,15 @@ export class MapDetailsPage {
     private plt: Platform
   ) { }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+    console.log('ionViewDidEnter Map Details');
     this.plt.ready().then(() => {
-      console.log('ionViewDidEnter Map Details');
-      setTimeout(this.loadMap.bind(this), 1000);
+        this.loadMap();
     });
+  }
+
+  ionViewWillLeave() {
+    this.mapServiceProvider.setDiv(null);
   }
 
   loadMap(){

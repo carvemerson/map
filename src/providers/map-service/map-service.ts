@@ -22,26 +22,15 @@ export class MapServiceProvider {
 
   setDiv(el: HTMLElement): Promise<any> {
     return new Promise<any>((resolve) => {
-
-      if (!this.map) {
-
+      if(!this.map && el != null){
         this.map = this.googleMaps.create(el);
-
-        this.map.one(GoogleMapsEvent.MAP_READY).then(
-          () => {
-            resolve(this.map);
-          }
-        );
-
-      } else if (this.map.getDiv() != el) {
-        this.map.clear();
-        this.map.setDiv(null);
-        this.map.setDiv(el);
-        resolve(this.map);
-
+        this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+          resolve();
+        });
       } else {
         this.map.clear();
-        resolve(this.map);
+        this.map.setDiv(el);
+        resolve();
       }
     });
   }

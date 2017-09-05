@@ -18,11 +18,15 @@ export class HomePage {
     private plt: Platform
   ) { }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+    console.log('ionViewDidEnter Home');
     this.plt.ready().then(() => {
-      console.log('ionViewDidEnter Home');
-      setTimeout(this.loadMap.bind(this), 1000);
+      this.loadMap();
     });
+  }
+
+  ionViewWillLeave() {
+    this.mapServiceProvider.setDiv(null);
   }
 
   loadMap() {
